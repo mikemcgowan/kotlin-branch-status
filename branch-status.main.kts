@@ -17,8 +17,11 @@ val results = branches.map {
     Branch(it, x[0].toInt(), x[1].toInt())
 }
 
-fun line() = println(String.format("  %s", "".padEnd(longest.length + 18, '-')))
+val header = String.format("  | %s | Behind | Ahead |", "Branch".padEnd(longest.length))
+fun line() = println("  ".padEnd(header.length, '-'))
 
 line()
-results.forEach { println(String.format("  | %s | %4s | %4s |", it.name.padEnd(longest.length), it.behind, it.ahead)) }
+println(header)
+line()
+results.forEach { println(String.format("  | %s | %6s | %5s |", it.name.padEnd(longest.length), it.behind, it.ahead)) }
 line()
