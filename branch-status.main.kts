@@ -1,6 +1,6 @@
 #!/usr/bin/env kotlin
 
-@file:DependsOn("com.lordcodes.turtle:turtle:0.6.0")
+@file:DependsOn("com.lordcodes.turtle:turtle:0.8.0")
 
 import com.lordcodes.turtle.shellRun
 
