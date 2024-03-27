@@ -4,6 +4,8 @@
 
 import com.lordcodes.turtle.shellRun
 
+val compareBranch = if (args.isEmpty()) "master" else args[0]
+
 data class Branch(val name: String, val behind: Int, val ahead: Int)
 
 val refsHeads = "refs/heads/"
@@ -12,7 +14,7 @@ val branches = forEachRef.lines().map { it.drop(1).drop(refsHeads.length).dropLa
 val longest = branches.maxBy { it.length }
 
 val results = branches.map {
-    val revList = shellRun("git", listOf("rev-list", "--left-right", "--count", "master...$it"))
+    val revList = shellRun("git", listOf("rev-list", "--left-right", "--count", "$compareBranch...$it"))
     val x = revList.lines()[0].split('\t')
     Branch(it, x[0].toInt(), x[1].toInt())
 }
@@ -20,6 +22,7 @@ val results = branches.map {
 val header = String.format("  | %s | Behind | Ahead |", "Branch".padEnd(longest.length))
 fun line() = println("  ".padEnd(header.length, '-'))
 
+if (args.isNotEmpty()) println("Comparing with branch '$compareBranch' ...")
 line()
 println(header)
 line()
